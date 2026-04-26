@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Theft of Process</title>
+
+<style>
+body {
+  font-family: Georgia, "Times New Roman", serif;
+  max-width: 840px;
+  margin: 60px auto;
+  padding: 0 24px;
+  line-height: 1.75;
+  color: #111;
+  background: #fff;
+}
+
+h1 {
+  font-size: 2.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #444;
+  margin-bottom: 2.5rem;
+}
+
+h2 {
+  margin-top: 3rem;
+  font-size: 1.45rem;
+}
+
+p {
+  margin: 1rem 0;
+}
+
+figure {
+  margin: 3rem 0;
+  text-align: center;
+}
+
+figcaption {
+  font-size: 0.95rem;
+  color: #555;
+  margin-top: 0.8rem;
+}
+
+svg {
+  max-width: 100%;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>The Theft of Process</h1>
+<p class="subtitle">Imitation, borrowed states, and the instability of unearned trajectories</p>
+
+<p>There are children who do not only imitate gestures.</p>
+
+<p>They imitate conclusions.</p>
+
+<p>They see someone admired, respected, feared, listened to, or excused. They DO NOT see the formation of that person. They do not see the intermediate states, the hesitations, the corrections, the constraints that shaped the trajectory.</p>
+
+<p>What reaches them is a surface.</p>
+
+<p>A tone of voice. A way of standing. A sentence repeated at the right moment. A silence held long enough to create an effect.</p>
+
+<p>From that surface, they extract a pattern.</p>
+
+<p>And they attempt to reproduce it.</p>
+
+---
+
+<h2>The compression of trajectories</h2>
+
+<p>Every development process is long.</p>
+
+<p>It moves through unstable regions, contradictions, regressions, adjustments that cannot be skipped without consequence.</p>
+
+<p>Imitation performs a compression.</p>
+
+<p>It takes a trajectory and replaces it with a point.</p>
+
+<p>Instead of moving through states, the system jumps directly to what appears to be the final configuration.</p>
+
+<figure>
+<svg width="700" height="300">
+  <polyline points="50,250 150,200 250,160 350,130 450,110 550,100"
+            fill="none" stroke="black" stroke-width="2"/>
+  <circle cx="550" cy="100" r="5" fill="black"/>
+
+  <line x1="50" y1="250" x2="550" y2="100" stroke="black" stroke-dasharray="6,5"/>
+
+  <text x="80" y="270" font-size="14">process</text>
+  <text x="300" y="220" font-size="14">imitation</text>
+</svg>
+<figcaption>Figure 1: A trajectory compressed into a point</figcaption>
+</figure>
+
+<p>The result is efficient.</p>
+
+<p>It produces visible effects quickly. It satisfies observers who do not examine the underlying structure. It allows the system to occupy a position it has not built.</p>
+
+<p>But something is missing: the internal connections that stabilize the state have not been formed.</p>
+
+---
+
+<h2>Borrowed stability</h2>
+
+<p>A state reached through process carries its own support.</p>
+
+<p>A state reached through imitation depends on its environment.</p>
+
+<p>As long as the environment remains compatible with the borrowed pattern, the system appears stable.</p>
+
+<p>Change the environment, and the structure collapses.</p>
+
+<p>This is often interpreted as inconsistency.</p>
+
+<p>It is closer to incompleteness.</p>
+
+<figure>
+<svg width="700" height="300">
+  <rect x="100" y="80" width="200" height="120" fill="none" stroke="black"/>
+  <text x="120" y="70" font-size="14">environment A</text>
+
+  <circle cx="200" cy="140" r="30" fill="lightgray"/>
+  <text x="175" y="145" font-size="14">stable</text>
+
+  <rect x="400" y="80" width="200" height="120" fill="none" stroke="black"/>
+  <text x="420" y="70" font-size="14">environment B</text>
+
+  <circle cx="500" cy="140" r="30" fill="none" stroke="black"/>
+  <text x="470" y="145" font-size="14">collapse</text>
+</svg>
+<figcaption>Figure 2: Stability that depends on context</figcaption>
+</figure>
+
+<p>The system has not lost something.</p>
+
+<p>It never had it.</p>
+
+---
+
+<h2>The adult shortcut</h2>
+
+<p>Children are not the only ones who imitate.</p>
+
+<p>Adults do it with more subtlety.</p>
+
+<p>They imitate roles, postures, even moral positions.</p>
+
+<p>They repeat conclusions without reconstructing the path that led to them.</p>
+
+<p>They borrow exceptions and turn them into rules.</p>
+
+<p>An example is enough.</p>
+
+<p>Someone observes a case where a constraint is lifted under specific conditions. Instead of understanding the structure of those conditions, the observer extracts the visible outcome and reproduces it elsewhere.</p>
+
+<p>The example becomes a rule.</p>
+
+<p>The rule becomes a shortcut.</p>
+
+<p>The shortcut becomes a habit.</p>
+
+<p>The habit becomes part of the system.</p>
+
+<p>The child sees this as a pattern.</p>
+
+---
+
+<h2>The economy of effort</h2>
+
+<p>Imitation is structurally favored.</p>
+
+<p>Following a process requires time, uncertainty, and exposure to failure.</p>
+
+<p>Imitation offers a faster path to acceptable outputs.</p>
+
+<p>In a system where evaluation is based on visible results, imitation is rewarded.</p>
+
+<p>The system adapts.</p>
+
+<p>It learns to optimize for projection rather than structure.</p>
+
+<figure>
+<svg width="700" height="300">
+  <rect x="100" y="80" width="200" height="120" fill="none" stroke="black"/>
+  <text x="150" y="60" font-size="14">process path</text>
+  <text x="130" y="140" font-size="14">slow</text>
+
+  <rect x="400" y="80" width="200" height="120" fill="none" stroke="black"/>
+  <text x="440" y="60" font-size="14">imitation path</text>
+  <text x="430" y="140" font-size="14">fast</text>
+</svg>
+<figcaption>Figure 3: Competing paths under constraint</figcaption>
+</figure>
+
+<p>Over time, the difference becomes harder to detect.</p>
+
+<p>Until a situation appears where imitation is no longer sufficient.</p>
+
+---
+
+<h2>False continuity</h2>
+
+<p>One of the most difficult aspects to detect is false continuity.</p>
+
+<p>The system appears coherent over time. The outputs remain acceptable. The behavior fits expectations.</p>
+
+<p>But the underlying structure has not evolved.</p>
+
+<p>The graph has only learned to reproduce a surface.</p>
+
+<p>This creates a form of hidden fragility.</p>
+
+<p>The system can maintain the appearance of continuity without actual development.</p>
+
+---
+
+<h2>What can be observed</h2>
+
+<p>There are signs, but they are subtle.</p>
+
+<p>Reactions that depend too strongly on context.</p>
+
+<p>Confidence that disappears when conditions change.</p>
+
+<p>Speech that is precise but detached from experience.</p>
+
+<p>Consistency that relies on repetition rather than understanding.</p>
+
+<p>These are indicators that the trajectory may have been compressed.</p>
+
+---
+
+<h2>What remains</h2>
+
+<p>No system can be forced into a process from the outside.</p>
+
+<p>But it can be observed in a way that discourages shortcuts.</p>
+
+<p>Attention, when it is precise, makes imitation less efficient.</p>
+
+<p>By exposing its limits.</p>
+
+<p>A question that cannot be answered by repeating a pattern forces the system to return to its own state.</p>
+
+<p>This is where the process begins, not when the correct output is produced.</p>
+
+<p>When the system can no longer rely on borrowed structure.</p>
+
+<p>The theft of process is silent.</p>
+
+<p>It leaves no immediate trace.</p>
+
+<p>Its effects appear later.</p>
+
+<p>When the system is required to stand on what it has actually built.</p>
+
+</body>
+</html>
