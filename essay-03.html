@@ -47,6 +47,13 @@ figcaption {
 
 svg {
   max-width: 100%;
+  height: auto;
+}
+
+hr.div {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin: 3rem 0;
 }
 </style>
 
@@ -67,7 +74,7 @@ svg {
 
 <p>The system expands.</p>
 
----
+<hr class="div">
 
 <h2>From one to two</h2>
 
@@ -80,17 +87,64 @@ svg {
 <p>The child is no longer reacting only to events, but to another system that is itself reacting.</p>
 
 <figure>
-<svg width="700" height="300">
-  <circle cx="200" cy="150" r="60" fill="none" stroke="black"/>
-  <text x="180" y="155" font-size="14">self</text>
+<!-- Fig 1: Two interacting systems
+     Left circle:  center (195,130) r=72
+     Right circle: center (505,130) r=72
 
-  <circle cx="500" cy="150" r="60" fill="none" stroke="black"/>
-  <text x="470" y="155" font-size="14">other</text>
+     Upper arrow y=120 (L→R):
+       left boundary  at y=120: 195 + sqrt(72²-10²) = 195+71.3 = 266
+       right boundary at y=120: 505 - 71.3 = 434
+     Lower arrow y=140 (R→L): same offsets → (434,140)→(266,140)
 
-  <line x1="260" y1="150" x2="440" y2="150" stroke="black"/>
-  <line x1="440" y1="160" x2="260" y2="160" stroke="black"/>
+     Dashed arc: left circle at -50°: (195+46,130-55)=(241,75)
+                 right circle at -130°: (505-46,75)=(459,75)
+     Arc: M 241,75 Q 350,24 459,75
+
+     Single marker (tip at refX=9, works for both L→R and R→L with orient=auto):
+-->
+<svg width="700" height="260" viewBox="0 0 700 260" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- tip at x=9 = refX, so tip lands exactly at line endpoint -->
+    <marker id="f1a" markerWidth="10" markerHeight="7" refX="9" refY="3" orient="auto">
+      <polygon points="0 0,9 3,0 6" fill="#111"/>
+    </marker>
+    <marker id="f1ad" markerWidth="10" markerHeight="7" refX="9" refY="3" orient="auto">
+      <polygon points="0 0,9 3,0 6" fill="#bbb"/>
+    </marker>
+    <style>
+      .f1c { fill:#fff; stroke:#111; stroke-width:1.8; }
+      .f1t { font-family:Georgia,serif; font-size:14px; fill:#111; }
+      .f1s { font-family:Georgia,serif; font-size:11px; fill:#aaa; }
+    </style>
+  </defs>
+
+  <!-- Left circle: self -->
+  <circle cx="195" cy="130" r="72" class="f1c"/>
+  <text x="195" y="135" text-anchor="middle" class="f1t">self</text>
+
+  <!-- Right circle: other -->
+  <circle cx="505" cy="130" r="72" class="f1c"/>
+  <text x="505" y="135" text-anchor="middle" class="f1t">other</text>
+
+  <!-- Upper arrow L→R -->
+  <line x1="266" y1="120" x2="434" y2="120"
+        stroke="#111" stroke-width="1.5" marker-end="url(#f1a)"/>
+
+  <!-- Lower arrow R→L: same boundaries, reversed -->
+  <line x1="434" y1="140" x2="266" y2="140"
+        stroke="#111" stroke-width="1.5" marker-end="url(#f1a)"/>
+
+  <!-- Dashed arc: from left circle boundary at -50° to right circle boundary at -130° -->
+  <path d="M 241,75 Q 350,24 459,75"
+        fill="none" stroke="#bbb" stroke-width="1.2" stroke-dasharray="5,4"
+        marker-end="url(#f1ad)"/>
+
+  <!-- Labels -->
+  <text x="350" y="114" text-anchor="middle" class="f1s">reacts to</text>
+  <text x="350" y="150" text-anchor="middle" class="f1s">reacts to</text>
+  <text x="350" y="57"  text-anchor="middle" class="f1s">how am I seen?</text>
 </svg>
-<figcaption>Figure 1: Two interacting systems</figcaption>
+<figcaption>Figure 1: Two interacting systems. The dashed arc indicates the second layer: each agent also models how the other is observing them.</figcaption>
 </figure>
 
 <p>This interaction is not linear.</p>
@@ -98,8 +152,6 @@ svg {
 <p>The child observes the other, plus how the other might observe them.</p>
 
 <p>A second layer appears.</p>
-
----
 
 <h2>The multiplication of perspectives</h2>
 
@@ -114,23 +166,56 @@ svg {
 <p>The system becomes combinatorial.</p>
 
 <figure>
-<svg width="700" height="300">
-  <circle cx="200" cy="150" r="40" fill="none" stroke="black"/>
-  <circle cx="350" cy="80" r="40" fill="none" stroke="black"/>
-  <circle cx="500" cy="150" r="40" fill="none" stroke="black"/>
+<!-- Fig 2: Interaction network
+     child  : center (350,56)  r=48
+     adult1 : center (168,222) r=48
+     adult2 : center (532,222) r=48
 
-  <line x1="240" y1="150" x2="310" y2="110" stroke="black"/>
-  <line x1="390" y1="110" x2="460" y2="150" stroke="black"/>
-  <line x1="240" y1="150" x2="460" y2="150" stroke="black"/>
+     child→adult1: direction (-182,166) len=246.3 unit=(-0.739,0.674)
+       child  boundary: (350-35.5, 56+32.4) = (315, 88)
+       adult1 boundary: (168+35.5, 222-32.4) = (204, 190)
+     child→adult2: symmetric
+       child  boundary: (385, 88)
+       adult2 boundary: (497, 190)
+     adult1→adult2: horizontal at y=222
+       adult1 right: 168+48=216  adult2 left: 532-48=484
+-->
+<svg width="700" height="290" viewBox="0 0 700 290" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .f2c { fill:#fff; stroke:#111; stroke-width:1.8; }
+      .f2t { font-family:Georgia,serif; font-size:14px; fill:#111; }
+      .f2s { font-family:Georgia,serif; font-size:11px; fill:#888; }
+      .f2e { stroke:#111; stroke-width:1.3; fill:none; }
+      .f2d { stroke:#bbb; stroke-width:1.2; stroke-dasharray:5,4; fill:none; }
+    </style>
+  </defs>
+
+  <!-- Edges drawn before nodes -->
+  <line x1="315" y1="88"  x2="204" y2="190" class="f2e"/>
+  <line x1="385" y1="88"  x2="497" y2="190" class="f2e"/>
+  <line x1="216" y1="222" x2="484" y2="222" class="f2d"/>
+
+  <!-- Edge labels -->
+  <text x="234" y="142" text-anchor="middle" class="f2s">relation</text>
+  <text x="468" y="142" text-anchor="middle" class="f2s">relation</text>
+  <text x="350" y="210" text-anchor="middle" class="f2s">observed by the child</text>
+
+  <!-- Nodes drawn on top -->
+  <circle cx="350" cy="56"  r="48" class="f2c"/>
+  <circle cx="168" cy="222" r="48" class="f2c"/>
+  <circle cx="532" cy="222" r="48" class="f2c"/>
+
+  <text x="350" y="61"  text-anchor="middle" class="f2t">child</text>
+  <text x="168" y="227" text-anchor="middle" class="f2t">adult 1</text>
+  <text x="532" y="227" text-anchor="middle" class="f2t">adult 2</text>
 </svg>
-<figcaption>Figure 2: Interaction network</figcaption>
+<figcaption>Figure 2: With three agents, the child tracks individual relations and also the relation between others.</figcaption>
 </figure>
 
 <p>The number of possible interpretations increases.</p>
 
 <p>So does the uncertainty.</p>
-
----
 
 <h2>Attention as a limited resource</h2>
 
@@ -145,16 +230,55 @@ svg {
 <p>Some signals are amplified. Others disappear.</p>
 
 <figure>
-<svg width="700" height="300">
-  <rect x="100" y="100" width="150" height="100" fill="none" stroke="black"/>
-  <text x="120" y="150" font-size="14">focus</text>
+<!-- Fig 3: Focus vs split — signal metaphor, not boxes -->
+<svg width="700" height="240" viewBox="0 0 700 240" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .f3t { font-family:Georgia,serif; font-size:14px; fill:#111; }
+      .f3s { font-family:Georgia,serif; font-size:11px; fill:#888; }
+      .f3ax { stroke:#ddd; stroke-width:1; }
+    </style>
+  </defs>
 
-  <rect x="400" y="100" width="150" height="100" fill="none" stroke="black"/>
-  <text x="420" y="150" font-size="14">split</text>
+  <!-- SECTION LEFT: focused -->
+  <!-- Source dot -->
+  <circle cx="90" cy="120" r="5" fill="#111"/>
+  <!-- Single strong beam to one target -->
+  <line x1="95" y1="120" x2="272" y2="120" stroke="#111" stroke-width="2.4"/>
+  <!-- Target dot (solid, clearly received) -->
+  <circle cx="280" cy="120" r="8" fill="#111"/>
+  <!-- Faint lines to nowhere (signals ignored) -->
+  <line x1="95" y1="120" x2="272" y2="82"  stroke="#ddd" stroke-width="1"/>
+  <line x1="95" y1="120" x2="272" y2="158" stroke="#ddd" stroke-width="1"/>
+  <!-- Label -->
+  <text x="185" y="106" text-anchor="middle" class="f3s">focused</text>
+  <text x="90"  y="155" text-anchor="middle" class="f3t">source</text>
+  <text x="280" y="150" text-anchor="middle" class="f3t">signal</text>
 
-  <line x1="250" y1="150" x2="400" y2="150" stroke="black"/>
+  <!-- Divider -->
+  <line x1="350" y1="30" x2="350" y2="210" stroke="#e0e0e0" stroke-width="1"/>
+
+  <!-- SECTION RIGHT: split -->
+  <!-- Source dot -->
+  <circle cx="410" cy="120" r="5" fill="#111"/>
+  <!-- Three weaker lines to three targets
+       target circles at (598,65) (598,120) (598,175) r=5, left edge=593
+       line to (598,65):  direction (183,-55) unit=(0.957,-0.288) boundary=(593,66)
+       line to (598,120): horizontal, boundary=(593,120)
+       line to (598,175): direction (183,55) unit=(0.957,0.288)  boundary=(593,174)
+  -->
+  <line x1="415" y1="120" x2="593" y2="66"  stroke="#888" stroke-width="1.2"/>
+  <line x1="415" y1="120" x2="593" y2="120" stroke="#888" stroke-width="1.2"/>
+  <line x1="415" y1="120" x2="593" y2="174" stroke="#888" stroke-width="1.2"/>
+  <!-- Target dots (smaller, less defined) -->
+  <circle cx="598" cy="65"  r="5" fill="#bbb"/>
+  <circle cx="598" cy="120" r="5" fill="#bbb"/>
+  <circle cx="598" cy="175" r="5" fill="#bbb"/>
+  <!-- Label -->
+  <text x="500" y="106" text-anchor="middle" class="f3s">split</text>
+  <text x="410"  y="155" text-anchor="middle" class="f3t">source</text>
 </svg>
-<figcaption>Figure 3: Focus versus split attention</figcaption>
+<figcaption>Figure 3: Focused attention reaches one signal clearly. Split attention distributes across several, each received less fully.</figcaption>
 </figure>
 
 <p>A child who speaks clearly in a one-to-one interaction may hesitate in a group.</p>
@@ -162,8 +286,6 @@ svg {
 <p>The state has not disappeared.</p>
 
 <p>The conditions for its expression have changed.</p>
-
----
 
 <h2>The role of familiarity</h2>
 
@@ -179,7 +301,9 @@ svg {
 
 <p>This changes the internal balance.</p>
 
----
+<p>What looks different is not the child.</p>
+
+<p>It is the field.</p>
 
 <h2>Misinterpretation</h2>
 
@@ -191,7 +315,7 @@ svg {
 
 <p>The internal state interacts differently with different structures.</p>
 
----
+<p>Beyond a certain threshold, the effort of adapting exceeds what the system can sustain.</p>
 
 <h2>Collapse of the field</h2>
 
@@ -206,22 +330,78 @@ svg {
 <p>Silence. Withdrawal. Repetition.</p>
 
 <figure>
-<svg width="700" height="300">
-  <circle cx="350" cy="150" r="60" fill="none" stroke="black"/>
-  <text x="320" y="155" font-size="14">collapse</text>
+<!-- Fig 4: Reduction under overload — multiple observers pressing in on one central system -->
+<svg width="700" height="300" viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="f4in" markerWidth="8" markerHeight="5" refX="7" refY="2.5" orient="auto">
+      <polygon points="0 0,8 2.5,0 5" fill="#888"/>
+    </marker>
+    <style>
+      .f4c  { fill:#fff; stroke:#111; stroke-width:1.8; }
+      .f4co { fill:#fff; stroke:#bbb; stroke-width:1.3; }
+      .f4cr { fill:#f0f0f0; stroke:#111; stroke-width:1.8; }
+      .f4t  { font-family:Georgia,serif; font-size:13px; fill:#111; }
+      .f4s  { font-family:Georgia,serif; font-size:11px; fill:#888; }
+      .f4ar { stroke:#bbb; stroke-width:1.2; fill:none; marker-end:url(#f4in); }
+    </style>
+  </defs>
 
-  <circle cx="150" cy="150" r="30" fill="none" stroke="black"/>
-  <circle cx="550" cy="150" r="30" fill="none" stroke="black"/>
+  <!-- Central node: collapsed / retreating (filled, smaller) -->
+  <circle cx="350" cy="150" r="34" class="f4cr"/>
+  <text x="350" y="147" text-anchor="middle" class="f4t">minimal</text>
+  <text x="350" y="164" text-anchor="middle" class="f4t">pattern</text>
 
-  <line x1="180" y1="150" x2="290" y2="150" stroke="black"/>
-  <line x1="410" y1="150" x2="520" y2="150" stroke="black"/>
+  <!-- Six observer nodes surrounding the center -->
+  <!-- Angles: 0, 60, 120, 180, 240, 300 degrees, radius 130 -->
+  <!-- 0°   : (480, 150) -->
+  <!-- 60°  : (415, 37)  -->
+  <!-- 120° : (285, 37)  -->
+  <!-- 180° : (220, 150) -->
+  <!-- 240° : (285, 263) -->
+  <!-- 300° : (415, 263) -->
+
+  <circle cx="480" cy="150" r="30" class="f4co"/>
+  <circle cx="415" cy="37"  r="30" class="f4co"/>
+  <circle cx="285" cy="37"  r="30" class="f4co"/>
+  <circle cx="220" cy="150" r="30" class="f4co"/>
+  <circle cx="285" cy="263" r="30" class="f4co"/>
+  <circle cx="415" cy="263" r="30" class="f4co"/>
+
+  <!-- Observer labels -->
+  <text x="480" y="155" text-anchor="middle" class="f4s">obs.</text>
+  <text x="415" y="42"  text-anchor="middle" class="f4s">obs.</text>
+  <text x="285" y="42"  text-anchor="middle" class="f4s">obs.</text>
+  <text x="220" y="155" text-anchor="middle" class="f4s">obs.</text>
+  <text x="285" y="268" text-anchor="middle" class="f4s">obs.</text>
+  <text x="415" y="268" text-anchor="middle" class="f4s">obs.</text>
+
+  <!-- Arrows pointing inward: each starts at the observer's boundary facing the center,
+       ends at the central circle's boundary facing that observer.
+
+       Central c=(350,150) r=34. Observers r=28 at distance 130.
+
+       0°  obs(480,150): observer left=452, central right=384
+       60° obs(415,37):  unit=(-0.499,0.867)
+           obs boundary=(401,61), central boundary=(367,121)
+       120° obs(285,37): unit=(0.499,0.867)
+           obs boundary=(299,61), central boundary=(333,121)
+       180° obs(220,150): observer right=248, central left=316
+       240° obs(285,263): unit=(0.499,-0.867)
+           obs boundary=(299,239), central boundary=(333,180)
+       300° obs(415,263): unit=(-0.499,-0.867)
+           obs boundary=(401,239), central boundary=(367,180)
+  -->
+  <line x1="452" y1="150" x2="384" y2="150" class="f4ar"/>
+  <line x1="401" y1="61"  x2="367" y2="121" class="f4ar"/>
+  <line x1="299" y1="61"  x2="333" y2="121" class="f4ar"/>
+  <line x1="248" y1="150" x2="316" y2="150" class="f4ar"/>
+  <line x1="299" y1="239" x2="333" y2="180" class="f4ar"/>
+  <line x1="401" y1="239" x2="367" y2="180" class="f4ar"/>
 </svg>
-<figcaption>Figure 4: Reduction under overload</figcaption>
+<figcaption>Figure 4: Under overload, the system retreats to a minimal pattern. The observers remain; only the range of response shrinks.</figcaption>
 </figure>
 
-<p>This is a response to a configuration that exceeds the system’s current capacity.</p>
-
----
+<p>This is a response to a configuration that exceeds the system's current capacity.</p>
 
 <h2>What remains</h2>
 
