@@ -48,6 +48,13 @@ figcaption {
 
 svg {
   max-width: 100%;
+  height: auto;
+}
+
+hr.div {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin: 3rem 0;
 }
 </style>
 
@@ -62,7 +69,7 @@ svg {
 
 <p>They imitate conclusions.</p>
 
-<p>They see someone admired, respected, feared, listened to, or excused. They DO NOT see the formation of that person. They do not see the intermediate states, the hesitations, the corrections, the constraints that shaped the trajectory.</p>
+<p>They see someone admired, respected, feared, listened to, or excused. They do not see the formation of that person. They do not see the intermediate states, the hesitations, the corrections, the constraints that shaped the trajectory.</p>
 
 <p>What reaches them is a surface.</p>
 
@@ -72,7 +79,7 @@ svg {
 
 <p>And they attempt to reproduce it.</p>
 
----
+<hr class="div">
 
 <h2>The compression of trajectories</h2>
 
@@ -87,15 +94,36 @@ svg {
 <p>Instead of moving through states, the system jumps directly to what appears to be the final configuration.</p>
 
 <figure>
-<svg width="700" height="300">
-  <polyline points="50,250 150,200 250,160 350,130 450,110 550,100"
-            fill="none" stroke="black" stroke-width="2"/>
-  <circle cx="550" cy="100" r="5" fill="black"/>
+<!-- Fig 1: Trajectory vs compression -->
+<svg width="700" height="280" viewBox="0 0 700 280" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .f1c { fill:none; stroke:#111; stroke-width:2; }
+      .f1d { fill:none; stroke:#111; stroke-width:1.4; stroke-dasharray:7,5; }
+      .f1t { font-family:Georgia,serif; font-size:13px; fill:#555; }
+    </style>
+  </defs>
 
-  <line x1="50" y1="250" x2="550" y2="100" stroke="black" stroke-dasharray="6,5"/>
+  <!-- Process curve -->
+  <path d="M 70,248
+           C 108,234 130,215 168,202
+           C 200,191 222,200 258,180
+           C 292,162 314,170 350,150
+           C 385,132 406,140 442,122
+           C 476,106 500,112 534,98
+           C 556,90 570,87 580,86"
+        class="f1c"/>
 
-  <text x="80" y="270" font-size="14">process</text>
-  <text x="300" y="220" font-size="14">imitation</text>
+  <!-- Imitation: direct dashed line (the compression) -->
+  <line x1="70" y1="248" x2="580" y2="86" class="f1d"/>
+
+  <!-- Start and end points -->
+  <circle cx="70"  cy="248" r="5" fill="#111"/>
+  <circle cx="580" cy="86"  r="5" fill="#111"/>
+
+  <!-- Labels (placed away from both lines) -->
+  <text x="218" y="178" class="f1t">process</text>
+  <text x="330" y="196" class="f1t">imitation</text>
 </svg>
 <figcaption>Figure 1: A trajectory compressed into a point</figcaption>
 </figure>
@@ -106,7 +134,7 @@ svg {
 
 <p>But something is missing: the internal connections that stabilize the state have not been formed.</p>
 
----
+<hr class="div">
 
 <h2>Borrowed stability</h2>
 
@@ -123,27 +151,42 @@ svg {
 <p>It is closer to incompleteness.</p>
 
 <figure>
-<svg width="700" height="300">
-  <rect x="100" y="80" width="200" height="120" fill="none" stroke="black"/>
-  <text x="120" y="70" font-size="14">environment A</text>
+<!-- Fig 2: Borrowed stability -->
+<svg width="700" height="258" viewBox="0 0 700 258" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .f2b { fill:none; stroke:#111; stroke-width:1.5; }
+      .f2t { font-family:Georgia,serif; font-size:14px; fill:#111; }
+      .f2s { font-family:Georgia,serif; font-size:12px; fill:#888; }
+    </style>
+  </defs>
 
-  <circle cx="200" cy="140" r="30" fill="lightgray"/>
-  <text x="175" y="145" font-size="14">stable</text>
+  <!-- Environment A (left) -->
+  <rect x="55" y="68" width="255" height="148" rx="3" class="f2b"/>
+  <text x="182" y="56" text-anchor="middle" class="f2s">environment A</text>
 
-  <rect x="400" y="80" width="200" height="120" fill="none" stroke="black"/>
-  <text x="420" y="70" font-size="14">environment B</text>
+  <!-- Stable circle (filled) -->
+  <circle cx="182" cy="142" r="42" fill="#e0e0e0" stroke="#111" stroke-width="1.5"/>
+  <text x="182" y="148" text-anchor="middle" class="f2t">stable</text>
 
-  <circle cx="500" cy="140" r="30" fill="none" stroke="black"/>
-  <text x="470" y="145" font-size="14">collapse</text>
+  <!-- Environment B (right) -->
+  <rect x="390" y="68" width="255" height="148" rx="3" class="f2b"/>
+  <text x="517" y="56" text-anchor="middle" class="f2s">environment B</text>
+
+  <!-- Collapsed circle (dashed, fragile) -->
+  <circle cx="517" cy="142" r="42" fill="none" stroke="#111" stroke-width="1.5" stroke-dasharray="7,4"/>
+
+  <!-- "collapses" label outside and below the dashed circle -->
+  <text x="517" y="205" text-anchor="middle" class="f2s">collapses</text>
 </svg>
-<figcaption>Figure 2: Stability that depends on context</figcaption>
+<figcaption>Figure 2: Stability that depends on context.</figcaption>
 </figure>
 
 <p>The system has not lost something.</p>
 
 <p>It never had it.</p>
 
----
+<hr class="div">
 
 <h2>The adult shortcut</h2>
 
@@ -171,7 +214,50 @@ svg {
 
 <p>The child sees this as a pattern.</p>
 
----
+<hr class="div">
+
+<p>The child doesn't inherit the shortcut but the belief that shortcuts are the method.</p>
+
+<figure>
+<!-- Fig 3 : The compression cascade -->
+<svg width="700" height="112" viewBox="0 0 700 112" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="ca" markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0,9 3,0 6" fill="#111"/>
+    </marker>
+    <style>
+      .cb { fill:none; stroke:#111; stroke-width:1.5; }
+      .ct { font-family:Georgia,serif; font-size:14px; fill:#111; }
+      .cs { font-family:Georgia,serif; font-size:11px; fill:#888; }
+    </style>
+  </defs>
+
+  <!-- Four boxes: example, rule, shortcut, habit -->
+  <!-- Box width=112, height=46, gap=32. Total: 4*112+3*32 = 544. Margin: (700-544)/2 = 78 -->
+  <rect x="78"  y="33" width="112" height="46" rx="4" class="cb"/>
+  <rect x="222" y="33" width="112" height="46" rx="4" class="cb"/>
+  <rect x="366" y="33" width="112" height="46" rx="4" class="cb"/>
+  <rect x="510" y="33" width="112" height="46" rx="4" class="cb"/>
+
+  <!-- Box labels -->
+  <text x="134" y="61" text-anchor="middle" class="ct">example</text>
+  <text x="278" y="61" text-anchor="middle" class="ct">rule</text>
+  <text x="422" y="61" text-anchor="middle" class="ct">shortcut</text>
+  <text x="566" y="61" text-anchor="middle" class="ct">habit</text>
+
+  <!-- Arrows between boxes -->
+  <line x1="190" y1="56" x2="220" y2="56" stroke="#111" stroke-width="1.4" marker-end="url(#ca)"/>
+  <line x1="334" y1="56" x2="364" y2="56" stroke="#111" stroke-width="1.4" marker-end="url(#ca)"/>
+  <line x1="478" y1="56" x2="508" y2="56" stroke="#111" stroke-width="1.4" marker-end="url(#ca)"/>
+
+  <!-- Small subtexts below boxes -->
+  <text x="134" y="94" text-anchor="middle" class="cs">observed</text>
+  <text x="278" y="94" text-anchor="middle" class="cs">generalized</text>
+  <text x="422" y="94" text-anchor="middle" class="cs">applied elsewhere</text>
+  <text x="566" y="94" text-anchor="middle" class="cs">invisible to the system</text>
+</svg>
+<figcaption>Figure 3: The compression cascade.</figcaption>
+</figure>
 
 <h2>The economy of effort</h2>
 
@@ -188,23 +274,50 @@ svg {
 <p>It learns to optimize for projection rather than structure.</p>
 
 <figure>
-<svg width="700" height="300">
-  <rect x="100" y="80" width="200" height="120" fill="none" stroke="black"/>
-  <text x="150" y="60" font-size="14">process path</text>
-  <text x="130" y="140" font-size="14">slow</text>
+<!-- Fig 4 (was Fig 3): Competing paths -->
+<svg width="700" height="268" viewBox="0 0 700 268" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .f4b { fill:none; stroke:#111; stroke-width:1.5; }
+      .f4p { fill:none; stroke:#111; stroke-width:1.6; }
+      .f4t { font-family:Georgia,serif; font-size:14px; fill:#111; }
+      .f4s { font-family:Georgia,serif; font-size:12px; fill:#888; }
+      .f4d { fill:none; stroke:#111; stroke-width:1.4; stroke-dasharray:6,4; }
+    </style>
+  </defs>
 
-  <rect x="400" y="80" width="200" height="120" fill="none" stroke="black"/>
-  <text x="440" y="60" font-size="14">imitation path</text>
-  <text x="430" y="140" font-size="14">fast</text>
+  <!-- Left box: process path -->
+  <rect x="55"  y="60" width="255" height="158" rx="3" class="f4b"/>
+  <text x="182" y="48" text-anchor="middle" class="f4t">process path</text>
+
+  <!-- Winding path inside left box -->
+  <polyline points="75,204 112,178 132,190 168,160 196,172 232,145 260,122"
+            class="f4p"/>
+  <!-- Small dots at regression points -->
+  <circle cx="132" cy="190" r="4" fill="#888"/>
+  <circle cx="196" cy="172" r="4" fill="#888"/>
+
+  <!-- Label below left box -->
+  <text x="182" y="236" text-anchor="middle" class="f4s">slower, more uncertain</text>
+
+  <!-- Right box: imitation path -->
+  <rect x="390" y="60" width="255" height="158" rx="3" class="f4b"/>
+  <text x="517" y="48" text-anchor="middle" class="f4t">imitation path</text>
+
+  <!-- Direct line inside right box -->
+  <line x1="410" y1="204" x2="628" y2="122" class="f4d"/>
+
+  <!-- Label below right box -->
+  <text x="517" y="236" text-anchor="middle" class="f4s">faster, no intermediate states</text>
 </svg>
-<figcaption>Figure 3: Competing paths under constraint</figcaption>
+<figcaption>Figure 4: Competing paths</figcaption>
 </figure>
 
 <p>Over time, the difference becomes harder to detect.</p>
 
 <p>Until a situation appears where imitation is no longer sufficient.</p>
 
----
+<hr class="div">
 
 <h2>False continuity</h2>
 
@@ -220,7 +333,7 @@ svg {
 
 <p>The system can maintain the appearance of continuity without actual development.</p>
 
----
+<hr class="div">
 
 <h2>What can be observed</h2>
 
@@ -236,7 +349,7 @@ svg {
 
 <p>These are indicators that the trajectory may have been compressed.</p>
 
----
+<hr class="div">
 
 <h2>What remains</h2>
 
