@@ -14,223 +14,368 @@ body {
   color: #111;
 }
 
-h1 {
-  font-size: 2.3rem;
-  margin-bottom: 0.5rem;
-}
+h1 { font-size: 2.3rem; margin-bottom: 0.5rem; }
+.subtitle { font-size: 1.1rem; color: #444; margin-bottom: 2.5rem; }
+h2 { margin-top: 3rem; font-size: 1.45rem; }
+p { margin: 1rem 0; }
 
-.subtitle {
-  font-size: 1.1rem;
-  color: #444;
-  margin-bottom: 2.5rem;
-}
+figure { margin: 3rem 0; text-align: center; }
+figcaption { font-size: 0.95rem; color: #555; margin-top: 0.8rem; }
+svg { max-width: 100%; height: auto; }
 
-h2 {
-  margin-top: 3rem;
-  font-size: 1.45rem;
-}
-
-p {
-  margin: 1rem 0;
-}
-
-figure {
+hr.div {
+  border: none;
+  border-top: 1px solid #e0e0e0;
   margin: 3rem 0;
-  text-align: center;
-}
-
-figcaption {
-  font-size: 0.95rem;
-  color: #555;
-  margin-top: 0.8rem;
-}
-
-svg {
-  max-width: 100%;
 }
 </style>
 
 </head>
-
 <body>
 
 <h1>After the Break</h1>
 <p class="subtitle">Discontinuity, lost trajectories, and the limits of reconstruction</p>
 
 <p>There are moments that do not look important when they happen.</p>
-
 <p>No visible rupture. No immediate consequence. Nothing that forces attention.</p>
-
 <p>The system continues.</p>
-
 <p>From the outside, nothing has changed.</p>
-
 <p>From the inside, something has shifted.</p>
-
----
 
 <h2>Continuity as assumption</h2>
 
 <p>When we observe a system over time, we assume continuity.</p>
-
 <p>We believe that between two observations, the system has evolved smoothly.</p>
-
 <p>This assumption is rarely questioned.</p>
-
 <p>It is convenient. It allows reconstruction.</p>
-
 <p>It allows explanation.</p>
-
 <p>But it is not guaranteed.</p>
 
 <figure>
-<svg width="700" height="300">
-  <polyline points="50,200 150,180 250,150 350,140 450,120 550,100"
-            fill="none" stroke="black" stroke-width="2"/>
-</svg>
-<figcaption>Figure 1: Assumed continuous trajectory</figcaption>
-</figure>
+<!--
+  Fig 1: Assumed continuous trajectory
+  Axes: x 65..645 (time), y 42..215 (state), x-axis at y=215
+  Two observation dots: (90,195) and (620,78)
+  Smooth bezier connecting them (what the observer assumes happened)
+-->
+<svg viewBox="0 0 700 230" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .ax { stroke:#111; stroke-width:1.2; }
+      .ts { font-family:Georgia,serif; font-size:11px; fill:#888; }
+      .cu { fill:none; stroke:#111; stroke-width:2; }
+    </style>
+  </defs>
 
----
+  <line x1="65" y1="215" x2="645" y2="215" class="ax"/>
+  <line x1="65" y1="42"  x2="65"  y2="215" class="ax"/>
+  <text x="638" y="228" class="ts">time</text>
+  <text x="20"  y="48"  class="ts">state</text>
+
+  <!-- Assumed smooth trajectory -->
+  <path d="M 90,195 C 240,185 440,95 620,78" class="cu"/>
+
+  <!-- Observation dots -->
+  <circle cx="90"  cy="195" r="5" fill="#111"/>
+  <circle cx="620" cy="78"  r="5" fill="#111"/>
+</svg>
+<figcaption>Figure 1: Assumed continuous trajectory. Between the two observations, a smooth path is inferred.</figcaption>
+</figure>
 
 <h2>Hidden discontinuity</h2>
 
 <p>A system may undergo a change that is not captured.</p>
-
 <p>No observation coincides with it.</p>
-
 <p>No signal is recorded.</p>
-
 <p>The next observation belongs to a different regime.</p>
 
 <figure>
-<svg width="700" height="300">
-  <polyline points="50,200 150,180 250,150"
-            fill="none" stroke="black" stroke-width="2"/>
-  <polyline points="300,80 400,90 500,110 600,120"
-            fill="none" stroke="black" stroke-width="2"/>
+<!--
+  Fig 2: Unobserved transition
+  Two observed segments separated by a gap zone.
+  Dashed line = the hidden transition (true but unobserved).
 
-  <line x1="250" y1="150" x2="300" y2="80" stroke="black" stroke-dasharray="6,5"/>
+  Left segment:   M 90,196 C 175,192 240,180 285,170
+    endpoint: (285, 170)
+  Right segment:  M 390,96  C 460,91  545,86  620,82
+    startpoint: (390, 96)
+  Dashed connector: exactly (285,170) → (390,96)
+
+  Dots at: (90,196), (285,170), (390,96), (620,82)
+-->
+<svg viewBox="0 0 700 230" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .ax  { stroke:#111; stroke-width:1.2; }
+      .ts  { font-family:Georgia,serif; font-size:11px; fill:#888; }
+      .cu  { fill:none; stroke:#111; stroke-width:2; }
+      .gap { fill:#f4f4f4; stroke:none; }
+      .dc  { stroke:#aaa; stroke-width:1.4; stroke-dasharray:7,5; }
+    </style>
+  </defs>
+
+  <!-- Gap zone (drawn before curves so curves sit on top) -->
+  <rect x="285" y="42" width="105" height="175" class="gap"/>
+
+  <!-- Axes -->
+  <line x1="65"  y1="215" x2="645" y2="215" class="ax"/>
+  <line x1="65"  y1="42"  x2="65"  y2="215" class="ax"/>
+  <text x="638" y="228" class="ts">time</text>
+  <text x="20"  y="48"  class="ts">state</text>
+
+  <!-- Left observed segment -->
+  <path d="M 90,196 C 175,192 240,180 285,170" class="cu"/>
+
+  <!-- Right observed segment -->
+  <path d="M 390,96 C 460,91 545,86 620,82" class="cu"/>
+
+  <!-- Dashed connector: hidden transition from (285,170) to (390,96) -->
+  <line x1="285" y1="170" x2="390" y2="96" class="dc"/>
+
+  <!-- Observation dots -->
+  <circle cx="90"  cy="196" r="5" fill="#111"/>
+  <circle cx="285" cy="170" r="5" fill="#111"/>
+  <circle cx="390" cy="96"  r="5" fill="#111"/>
+  <circle cx="620" cy="82"  r="5" fill="#111"/>
+
+  <!-- Labels below axis -->
+  <text x="175" y="228" text-anchor="middle" class="ts">observed</text>
+  <text x="338" y="228" text-anchor="middle" class="ts">gap</text>
+  <text x="507" y="228" text-anchor="middle" class="ts">observed</text>
 </svg>
-<figcaption>Figure 2: Unobserved transition</figcaption>
+<figcaption>Figure 2: Unobserved transition. The dashed line marks the real change that occurred inside the gap. The observer sees only the two solid segments.</figcaption>
 </figure>
 
 <p>The observer connects the points.</p>
-
 <p>A curve is drawn between them.</p>
-
 <p>The discontinuity disappears.</p>
 
----
+<p>It disappears from the record. Not from the system.</p>
 
 <h2>Irreversibility</h2>
 
 <p>Some changes are not reversible.</p>
-
 <p>In the sense that the previous trajectory cannot be recovered.</p>
-
 <p>The system has entered a different region.</p>
-
 <p>The structure has been modified.</p>
-
 <p>Even if behavior returns to a previous form, the path is not the same.</p>
 
----
+<figure>
+<!--
+  Fig 3: Same observations, different underlying paths.
+  Both paths start at (90,148) and end at (620,148) — same observed output.
+  Original path (light grey): curves gently upward.
+    M 90,148 C 230,88 420,88 620,148
+  Path after break (black): S-curve through completely different region.
+    M 90,148 C 160,225 360,225 410,148 C 460,72 560,72 620,148
+
+  Dots at (90,148) and (620,148) representing the two observations.
+-->
+<svg viewBox="0 0 700 260" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .ax  { stroke:#111; stroke-width:1.2; }
+      .ts  { font-family:Georgia,serif; font-size:11px; fill:#888; }
+      .or  { fill:none; stroke:#ccc; stroke-width:2; }
+      .nb  { fill:none; stroke:#111; stroke-width:2; }
+    </style>
+  </defs>
+
+  <line x1="65" y1="235" x2="645" y2="235" class="ax"/>
+  <line x1="65" y1="42"  x2="65"  y2="235" class="ax"/>
+  <text x="638" y="248" class="ts">time</text>
+  <text x="20"  y="48"  class="ts">state</text>
+
+  <!-- Original path (grey) -->
+  <path d="M 90,148 C 230,88 420,88 620,148" class="or"/>
+
+  <!-- Path after break (black S-curve) -->
+  <path d="M 90,148 C 160,225 360,225 410,148 C 460,72 560,72 620,148" class="nb"/>
+
+  <!-- Shared observation dots -->
+  <circle cx="90"  cy="148" r="5" fill="#111"/>
+  <circle cx="620" cy="148" r="5" fill="#111"/>
+
+  <!-- Labels on curves -->
+  <text x="354" y="82"  text-anchor="middle" class="ts">original path</text>
+  <text x="248" y="222" text-anchor="middle" class="ts">path after break</text>
+
+  <!-- "same observations" note -->
+  <text x="90"  y="165" text-anchor="middle" class="ts">obs. 1</text>
+  <text x="620" y="165" text-anchor="middle" class="ts">obs. 2</text>
+</svg>
+<figcaption>Figure 3: Same observations, different paths. The two endpoints are identical. What lies between is not.</figcaption>
+</figure>
 
 <h2>Loss of information</h2>
 
 <p>When a transition is not observed, information is lost.</p>
-
 <p>This loss is structural.</p>
-
 <p>The system can no longer be reconstructed with certainty.</p>
-
 <p>Multiple trajectories become compatible with the same observations.</p>
 
 <figure>
-<svg width="700" height="300">
-  <polyline points="50,200 200,150"
-            fill="none" stroke="black" stroke-width="2"/>
+<!--
+  Fig 4: Multiple compatible trajectories from a single branch point.
+  Axes: x 65..645, y 42..240 (axis at y=240)
 
-  <polyline points="200,150 350,120 500,90"
-            fill="none" stroke="black" stroke-width="2"/>
+  Incoming segment: M 65,168 C 145,164 200,158 258,152
+    endpoint: (258, 152)
+  Branch dot: (258, 152), r=5
 
-  <polyline points="200,150 350,200 500,210"
-            fill="none" stroke="black" stroke-width="2"/>
+  Path A (upward): M 258,152 C 368,118 490,96 630,85
+  Path B (downward): M 258,152 C 368,190 490,208 630,218
+-->
+<svg viewBox="0 0 700 255" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .ax { stroke:#111; stroke-width:1.2; }
+      .ts { font-family:Georgia,serif; font-size:11px; fill:#888; }
+      .cu { fill:none; stroke:#111; stroke-width:2; }
+    </style>
+  </defs>
 
-  <circle cx="200" cy="150" r="5" fill="black"/>
+  <line x1="65" y1="238" x2="645" y2="238" class="ax"/>
+  <line x1="65" y1="42"  x2="65"  y2="238" class="ax"/>
+  <text x="638" y="250" class="ts">time</text>
+  <text x="20"  y="48"  class="ts">state</text>
+
+  <!-- Incoming segment -->
+  <path d="M 65,168 C 145,164 200,158 258,152" class="cu"/>
+
+  <!-- Path A -->
+  <path d="M 258,152 C 368,118 490,96 630,85" class="cu"/>
+
+  <!-- Path B -->
+  <path d="M 258,152 C 368,190 490,208 630,218" class="cu"/>
+
+  <!-- Branch point -->
+  <circle cx="258" cy="152" r="5" fill="#111"/>
+
+  <!-- Labels -->
+  <text x="636" y="82"  text-anchor="start" class="ts">A</text>
+  <text x="636" y="215" text-anchor="start" class="ts">B</text>
 </svg>
-<figcaption>Figure 3: Multiple compatible trajectories</figcaption>
+<figcaption>Figure 4: Multiple compatible trajectories. From a single observed point, two distinct paths are consistent with the data. The difference lies in what was not seen.</figcaption>
 </figure>
 
 <p>The observer cannot decide.</p>
-
 <p>Both paths are consistent.</p>
-
 <p>The difference lies in what was not seen.</p>
-
----
 
 <h2>Delayed consequences</h2>
 
 <p>The effect of a discontinuity is rarely immediate.</p>
-
 <p>The system may continue to produce acceptable outputs.</p>
-
 <p>Stability may persist for a time.</p>
-
 <p>The difference appears later.</p>
-
 <p>When the system is required to rely on a structure that no longer exists.</p>
-
----
 
 <h2>False repair</h2>
 
 <p>There is an attempt to reconstruct the past.</p>
-
 <p>To return to a previous state.</p>
-
 <p>To reintroduce conditions that once produced stability.</p>
-
 <p>This does not restore the trajectory.</p>
-
 <p>It produces a new configuration that resembles the old one.</p>
-
 <p>The difference is subtle.</p>
-
 <p>It appears under constraint.</p>
-
----
 
 <h2>The cost of gaps</h2>
 
 <p>Not all observation gaps have the same effect.</p>
-
 <p>Some occur in regions where the system is stable.</p>
-
 <p>Others occur at points where the system is sensitive.</p>
-
 <p>The impact depends on the local structure.</p>
-
 <p>A small gap at the wrong moment has a larger effect than a long gap elsewhere.</p>
 
----
+<figure>
+<!--
+  Fig 5: Cost of gaps.
+  Curve: flat left, steep transition, flat right.
+  M 65,200 C 155,200 215,200 265,197 C 308,193 342,148 362,98 C 382,52 412,88 440,92 C 495,96 570,97 635,98
+
+  Sensitive zone: shaded rect x=245..455, y=42..215
+
+  Gap A (stable zone, wide): from (100,200) to (235,198)
+    Connecting dashed line is nearly horizontal → small state change
+  Gap B (sensitive zone, narrow): from (315,172) to (365,92)
+    Connecting dashed line is very steep → large state change despite narrow time gap
+
+  Dots: filled circles at all 4 gap endpoints.
+  Dashed connectors between each gap's endpoint pair.
+  Labels below x-axis.
+-->
+<svg viewBox="0 0 700 278" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .ax  { stroke:#111; stroke-width:1.2; }
+      .ts  { font-family:Georgia,serif; font-size:11px; fill:#888; }
+      .tb  { font-family:Georgia,serif; font-size:11px; fill:#111; }
+      .cu  { fill:none; stroke:#111; stroke-width:2; }
+      .sz  { fill:#f4f4f4; stroke:none; }
+      .ga  { stroke:#aaa; stroke-width:1.2; stroke-dasharray:5,4; }
+    </style>
+  </defs>
+
+  <!-- Sensitive zone (drawn first, behind everything) -->
+  <rect x="245" y="42" width="210" height="175" class="sz"/>
+  <text x="350" y="55" text-anchor="middle" class="ts">sensitive zone</text>
+
+  <!-- Axes -->
+  <line x1="65" y1="218" x2="645" y2="218" class="ax"/>
+  <line x1="65" y1="42"  x2="65"  y2="218" class="ax"/>
+  <text x="638" y="232" class="ts">time</text>
+  <text x="20"  y="48"  class="ts">state</text>
+
+  <!-- Main curve -->
+  <path d="M 65,200 C 155,200 215,200 265,197
+           C 308,193 342,148 362,98
+           C 382,52  412,88  440,92
+           C 495,96  570,97  635,98"
+        class="cu"/>
+
+  <!-- Gap A: dashed connector from (100,200) to (235,198) — nearly flat -->
+  <line x1="100" y1="200" x2="235" y2="198" class="ga"/>
+
+  <!-- Gap B: dashed connector from (315,172) to (365,92) — steep -->
+  <line x1="315" y1="172" x2="365" y2="92" class="ga"/>
+
+  <!-- Gap endpoint dots -->
+  <circle cx="100" cy="200" r="4.5" fill="#111"/>
+  <circle cx="235" cy="198" r="4.5" fill="#111"/>
+  <circle cx="315" cy="172" r="4.5" fill="#111"/>
+  <circle cx="365" cy="92"  r="4.5" fill="#111"/>
+
+  <!-- Horizontal brackets below the x-axis for each gap -->
+  <!-- Gap A bracket: x=100 to x=235 at y=228 -->
+  <line x1="100" y1="226" x2="100" y2="232" stroke="#888" stroke-width="1"/>
+  <line x1="100" y1="229" x2="235" y2="229" stroke="#888" stroke-width="1"/>
+  <line x1="235" y1="226" x2="235" y2="232" stroke="#888" stroke-width="1"/>
+
+  <!-- Gap B bracket: x=315 to x=365 at y=228 -->
+  <line x1="315" y1="226" x2="315" y2="232" stroke="#888" stroke-width="1"/>
+  <line x1="315" y1="229" x2="365" y2="229" stroke="#888" stroke-width="1"/>
+  <line x1="365" y1="226" x2="365" y2="232" stroke="#888" stroke-width="1"/>
+
+  <!-- Labels for each gap -->
+  <text x="168" y="246" text-anchor="middle" class="ts">gap A: wide, stable</text>
+  <text x="168" y="259" text-anchor="middle" class="ts">small effect</text>
+
+  <text x="340" y="246" text-anchor="middle" class="ts">gap B: narrow, sensitive</text>
+  <text x="340" y="259" text-anchor="middle" class="ts">large effect</text>
+</svg>
+<figcaption>Figure 5: Cost of gaps. Gap A is wide but occurs in a stable region, the state barely changes across it. Gap B is narrow but straddles the sensitive zone, the state changes radically in a short interval.</figcaption>
+</figure>
 
 <h2>What remains</h2>
 
 <p>Continuity is often assumed.</p>
-
 <p>It should not be.</p>
-
 <p>A system that is not observed continuously cannot be reconstructed completely.</p>
-
 <p>Some transitions will be lost.</p>
-
 <p>Some paths will never be known.</p>
-
 <p>This does not prevent understanding, but it limits certainty.</p>
-
 <p>And it changes the nature of what it means to follow a system over time.</p>
 
 </body>
